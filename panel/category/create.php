@@ -21,15 +21,15 @@
                 </section>
                 <section class="col-md-10 pt-3">
 
-                    <form action="" method="post">
+                    <form action="create.php" method="post">
                         <section class="form-group">
                             <label for="name">Name</label>
-                            <input type="text" class="form-control" name="name" id="name" placeholder="name ..."
-                                value="">
+                            <input type="text" class="form-control" name="name" id="name" placeholder="name ...">
                         </section>
                         <section class="form-group">
-                            <button type="submit" class="btn btn-primary">Update</button>
+                            <button type="submit" class="btn btn-primary">Create</button>
                         </section>
+
                     </form>
 
                 </section>
