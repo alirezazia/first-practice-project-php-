@@ -1,5 +1,6 @@
 <?php
 require_once '../../functions/helpers.php';
+require_once '../../functions/pdo_connection.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,17 +39,24 @@ require_once '../../functions/helpers.php';
                                     <th>setting</th>
                                 </tr>
                             </thead>
-                            <tbody>
-
+                            <tbo>
+                                <?php 
+                                    global $pdo;
+                                    $query = "SELECT * FROM categories";
+                                    $statment = $pdo->prepare($query);
+                                    $statment->execute();
+                                    $categories = $statment->fetchAll();
+                                ?>
+                                <?php foreach($categories as $category){ ?>
                                 <tr>
-                                    <td>2</td>
-                                    <td>name</td>
+                                    <td><?= $category->id ?></td>
+                                    <td><?= $category->name ?></td>
                                     <td>
                                         <a href="" class="btn btn-info btn-sm">Edit</a>
                                         <a href="" class="btn btn-danger btn-sm">Delete</a>
                                     </td>
                                 </tr>
-
+                                <?php } ?>
 
                             </tbody>
                         </table>
