@@ -1,3 +1,14 @@
+<?php
+require_once '../../functions/helpers.php';
+require_once '../../functions/pdo_connection.php';
+if(isset($_POST['name']) && $_POST['name'] !== "" ){
+    global $pdo;
+    $query = "INSERT INTO categories SET name = ? ,created_at = NOW() ";
+    $statment = $pdo->prepare($query);
+    $statment->execute([$_POST['name']]);
+    redirect('panel/category');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
