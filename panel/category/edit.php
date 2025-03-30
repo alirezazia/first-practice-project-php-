@@ -1,3 +1,25 @@
+<?php
+require_once '../../functions/helpers.php';
+require_once '../../functions/pdo_connection.php';
+if ($_GET['cat_id'] === "" || !isset($_GET['cat_id'])) {
+    dd("first if");
+    redirect('panel/category');
+}
+global $pdo;
+$query = "SELECT * FROM categories WHERE id = ? ";
+$statment = $pdo->prepare($query);
+$statment->execute([$_GET['cat_id']]);
+$category = $statment->fetch();
+if($category === false){
+    redirect('panel/category');
+}
+if(isset($_POST['name']) && $_POST['name'] !== "" ){
+    $query = "UPDATE `categories` SET `name` = ?,`updated_at`= NOW() WHERE `categories`.`id` = ?;";
+    $statment = $pdo->prepare($query);
+    $statment->execute([$_POST['name'],$_GET['cat_id']]);
+    redirect('panel/category');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,15 +43,15 @@
                 </section>
                 <section class="col-md-10 pt-3">
 
-                    <form action="" method="post">
+                    <form action="<?= url('panel/category/edit.php?cat_id=') . $_GET['cat_id'] ?>" method="post">
                         <section class="form-group">
                             <label for="name">Name</label>
-                            <input type="text" class="form-control" name="name" id="name" placeholder="name ..."
-                                value="">
+                            <input type="text" class="form-control" name="name" id="name" value="<?= $category->name ?>">
                         </section>
                         <section class="form-group">
-                            <button type="submit" class="btn btn-primary">Update</button>
+                            <button type="submit" class="btn btn-primary">Create</button>
                         </section>
+
                     </form>
 
                 </section>
